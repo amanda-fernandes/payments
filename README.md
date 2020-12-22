@@ -4,3 +4,9 @@ Framework: Flask
 ORM: SQL Alchemy
 DB: MySQL
 
+Steps to run the app:
+Initialize DB in docker.
+Install dependencies using make install
+
+
+

@@ -4,3 +4,4 @@ isort
 flask-sqlalchemy
 PyMySQL
 PyMySQL[rsa]
+cryptography
