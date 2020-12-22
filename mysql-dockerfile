@@ -6,9 +6,9 @@ COPY database.sql /docker-entrypoint-initdb.d/
 #Must have docker installed
 #This file will generate an image based on database.sql
 #Creating Image:
-#sudo docker build -f mysql-dockerfile .
+#sudo docsker build -f mysql-dockerfile . -t payments
 #Running Image:
-#docker run -d --name anyNameYouLike -p 3306:3306 mysql-dockerfile
+#docker run -d --name paymentsdb -p 3306:3306 payments
 #In case terminal is needed:
 #To access terminal sudo docker exec -it containerId bash
 #mysql -u root -p 

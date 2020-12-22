@@ -1,3 +1,6 @@
 black
 flask
 isort
+flask-sqlalchemy
+PyMySQL
+PyMySQL[rsa]
