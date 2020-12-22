@@ -23,10 +23,9 @@ def generating_password():
     key = base64.urlsafe_b64encode(kdf.derive(password)) 
     return key
 
-def decrypt():
+def decrypt(message):
     key = generating_password()
     cripto = Fernet(key)
-    decrypted_message = cripto.decrypt(credit_card.cc_number)
+    decrypted_message = cripto.decrypt(message)
     decrypted_message = decrypted_message.decode()
-    data['cc_number'] = decrypted_message
     return decrypted_message

@@ -11,8 +11,8 @@ def get_all():
             new_cc = {
                 "id": cc.id,
                 "exp_date": dateToString(cc.exp_date),
-                "holder": utils.decrypt(cc.holder),
-                "cc_number": cc.cc_number,
+                "holder": cc.holder,
+                "cc_number": utils.decrypt(cc.cc_number),
                 "cvv": cc.cvv,
             }
             all.append(new_cc)
