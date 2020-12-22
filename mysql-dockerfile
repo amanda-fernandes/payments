@@ -1,0 +1,17 @@
+FROM mysql:latest
+ENV MYSQL_ROOT_PASSWORD=1234
+COPY database.sql /docker-entrypoint-initdb.d/
+
+#####Comments - only for learning/dev purpose####
+#Must have docker installed
+#This file will generate an image based on database.sql
+#Creating Image:
+#sudo docker build -f mysql-dockerfile .
+#Running Image:
+#docker run -d --name anyNameYouLike -p 3306:3306 mysql-dockerfile
+#In case terminal is needed:
+#To access terminal sudo docker exec -it containerId bash
+#mysql -u root -p 
+#types in password as defined in this file: 1234
+#List all containers 
+#docker ps -a
