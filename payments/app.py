@@ -1,6 +1,6 @@
 from flask import Flask
 
-from payments.ext import api, model
+from payments.ext import api, model, site
 
 
 def create_app():
@@ -11,4 +11,5 @@ def create_app():
     ] = "mysql+pymysql://root:1234@127.0.0.1:3306/payments"
     model.init_app(app)
     api.init_app(app)
+    site.init_app(app)
     return app
