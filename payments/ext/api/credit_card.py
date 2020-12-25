@@ -1,7 +1,7 @@
 from flask import jsonify
 from payments.ext.api import utils
 from payments.ext.model.CreditCard import CreditCard, db
-
+#from creditcard import CreditCard
 
 def get_all():
     credit = CreditCard.query.all()
@@ -35,3 +35,19 @@ def get_by_id(id):
     }
 
     return jsonify({"message": data}), 200
+
+def add_credit_card(data):    
+    try:
+        #validate credit card     
+        #cc = CreditCard(card_number)
+        #if(cc.is_valid() and cc.get_brand() and utils.is_date_valid()):
+        if(utils.is_date_valid(data['exp_date'])):
+            new_date = utils.format_exp_date(data['exp_date'])
+            new_user = CreditCard(exp_date=new_date, holder=data['holder'],cc_number=utils.encripty(data['cc_number']), cvv=data['cvv'])
+            db.session.add(new_user)
+            db.session.commit()
+            return jsonify({'message' : 'New user created!'})
+        return jsonify({'message' : 'Invalid Date!'})        
+    except NotUniqueError as e:
+        return jsonify(dict(message=e.message)), 409    
+    
