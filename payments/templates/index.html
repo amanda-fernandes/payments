@@ -1,54 +1,79 @@
 {% extends "base.html" %}
 
+{%block  extra_js %} 
+<script type="text/javascript" src="{{ url_for('static', filename='util.js') }}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename='index.js') }}" defer></script>
+{% endblock extra_js%}
+
 {% block main %}
-<div class="columns">
-    <div class="column">
-        <div class="field">
-            <label class="label">Card Holder Name</label>
-            <div class="control">
-            <input class="input" type="text" placeholder="John Wick">
+<form id="cc-form">
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Card Holder Name</label>
+                <div class="control">
+                <input 
+                    type="text" 
+                    id="holder"
+                    class="input" 
+                    onfocusout="validateHolder()">
+                    <p class="help"></p>
+                </div>
+                
             </div>
-        </div>
-        
-        <div class="field">
-            <label class="label">Card Number</label>
-            <div class="control">
-            <input class="input" type="text" placeholder="Card Number" value="">
+            
+            <div class="field">
+                <label class="label">Card Number</label>
+                <div class="control">
+                <input  
+                    type="text"
+                    id="cc-number" 
+                    class="input" 
+                    onfocusout="validateCreditCard()">
+                <p class="help"></p>
+                </div>
             </div>
-        </div>
-        
-        <div class="field">
-            <label class="label">Expiration Date</label>
-            <div class="control">
-            <input class="input" type="email" placeholder="YYYY/MM" value="">
+            
+            <div class="field">
+                <label class="label">Expiration Date</label>
+                <div class="control">
+                <input class="input" 
+                    type="text"
+                    id="exp_date" 
+                    placeholder="YYYY/MM" 
+                    onchange="dateFormat(this)">
+                </div>
             </div>
-        </div>
-        
-        <div class="field">
-            <label class="label">CVV</label>
-            <div class="control">
-            <input class="input" type="text" placeholder="CVV" value="">
+            
+            <div class="field">
+                <label class="label">CVV</label>
+                <div class="control">
+                <input class="input" 
+                    type="text" 
+                    placeholder="CVV" 
+                    id="cvv"
+                    onfocusout="validateCVV()">
+                    <p class="help"></p>
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Brand</label>
-            <div class="control">
-            <input class="input" type="text" placeholder="Brand" value="">
+            <div class="field">
+                <label class="label">Brand</label>
+                <div class="control">
+                <input class="input" type="text" placeholder="Brand" value="" readonly>
+                </div>
+            </div>
+        
+            <div class="field is-grouped">
+                <div class="control">
+                <button class="button is-link">Submit</button>
+                </div>
+                <div class="control">
+                <button class="button is-link is-light">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="column">
-
-    </div>
-</div>
-
-  
-  
-  
-  
-  
-  
-  
+</form>
 
 {% endblock main %}

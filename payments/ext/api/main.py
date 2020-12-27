@@ -1,9 +1,8 @@
-from flask import Blueprint, g
+from flask import Blueprint, g, jsonify, request
 from flask_expects_json import expects_json
 from payments.ext.api import credit_card
 
 bp = Blueprint("api", __name__)
-
 
 @bp.route("/v1/credit-card", methods=["GET"])
 def list_credit_card():
@@ -16,21 +15,33 @@ def detail_credit_card(id):
     response = credit_card.get_by_id(id)
     return response
 
-schema = {
+validation = {
   "type": "object",
   "properties": {
     "exp_date": {"type": "string", "minLength": 7, "error_msg": "Please provide a valid Expiration Date YYYY/MM"},
-    "holder": { "type": "string", "minLength": 2 , "error_msg": "Please provide a Holder name"},
-    "cc_number": { "type": "string", "minLength": 16, "error_msg": "Please provide a valid Credit Card Number" },
+    "holder": { "type": "string", "minLength": 2 , "error_msg": "Please provide a Holder name"},    
     "cvv": {"type":"number","minimum": 100, "maximum": 9999, "error_msg": "Please provide a valid CVV" }  
   },
-  "required": ["exp_date","holder","cc_number"]
+  "required": ["exp_date","holder"]
 }
 
 @bp.route("/v1/credit-card", methods=['POST'])
-@expects_json(schema)
+@expects_json(validation)
 def add_credit_card():    
     data = g.data
     response = credit_card.add_credit_card(data)
-    return response
+    return jsonify(response)
 
+cc_validation = {
+  "type": "object",
+  "properties": {        
+    "cc_number": { "type": "string", "minimum": 1000000000000000, "maximum": 9999999999999999, "error_msg": "Please provide a valid Credit Card Number" },    
+  },
+  "required": ["cc_number"]
+}
+@bp.route("/v1/credit-card-validation", methods=['POST'])
+def validate_credit_card(cc_validation):  
+    data = g.data
+    cc_number = data["cc_number"]
+    response = credit_card.validate_credit_card(cc_number)
+    return response

@@ -36,6 +36,14 @@ def get_by_id(id):
 
     return jsonify({"message": data}), 200
 
+def validate_credit_card(cc_number): 
+    try:
+        #validate credit card     
+        data = "200"
+        return jsonify({'message' : data}) , 200    
+    except NotUniqueError as e:
+        return jsonify(dict(message=e.message)), 409
+
 def add_credit_card(data):    
     try:
         #validate credit card     
