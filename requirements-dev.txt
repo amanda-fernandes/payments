@@ -9,4 +9,4 @@ flask_expects_json
 ipython
 wheel
 ipdb
-#python-creditcard
+python-creditcard

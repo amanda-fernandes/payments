@@ -18,9 +18,10 @@ def detail_credit_card(id):
 validation = {
   "type": "object",
   "properties": {
+    "cc_number": { "type": "string", "minLength": 16, "maxLength": 16, "error_msg": "Please provide a valid Credit Card Number" },    
     "exp_date": {"type": "string", "minLength": 7, "error_msg": "Please provide a valid Expiration Date YYYY/MM"},
     "holder": { "type": "string", "minLength": 2 , "error_msg": "Please provide a Holder name"},    
-    "cvv": {"type":"number","minimum": 100, "maximum": 9999, "error_msg": "Please provide a valid CVV" }  
+    "cvv": {"type":"string","minLength": 3, "maxLength": 4, "error_msg": "Please provide a valid CVV" }  
   },
   "required": ["exp_date","holder"]
 }
@@ -30,17 +31,18 @@ validation = {
 def add_credit_card():    
     data = g.data
     response = credit_card.add_credit_card(data)
-    return jsonify(response)
+    return response
 
 cc_validation = {
   "type": "object",
   "properties": {        
-    "cc_number": { "type": "string", "minimum": 1000000000000000, "maximum": 9999999999999999, "error_msg": "Please provide a valid Credit Card Number" },    
+    "cc_number": { "type": "string", "minLength": 16, "maxLength": 16, "error_msg": "Please provide a valid Credit Card Number" },    
   },
   "required": ["cc_number"]
 }
 @bp.route("/v1/credit-card-validation", methods=['POST'])
-def validate_credit_card(cc_validation):  
+@expects_json(cc_validation)
+def validate_credit_card():  
     data = g.data
     cc_number = data["cc_number"]
     response = credit_card.validate_credit_card(cc_number)

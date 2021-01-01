@@ -49,13 +49,19 @@ def add_credit_card(data):
         #validate credit card     
         #cc = CreditCard(card_number)
         #if(cc.is_valid() and cc.get_brand() and utils.is_date_valid()):
-        if(utils.is_date_valid(data['exp_date'])):
-            new_date = utils.format_exp_date(data['exp_date'])
+        new_date = validate_date(data["exp_date"])
+        if(new_date != False):            
             new_user = CreditCard(exp_date=new_date, holder=data['holder'],cc_number=utils.encripty(data['cc_number']), cvv=data['cvv'])
             db.session.add(new_user)
             db.session.commit()
-            return jsonify({'message' : 'New user created!'})
+            return jsonify({'message' : '200'})
         return jsonify({'message' : 'Invalid Date!'})        
     except NotUniqueError as e:
         return jsonify(dict(message=e.message)), 409    
     
+def validate_date(exp_date):
+    if(utils.is_date_valid(exp_date)):
+        new_date = utils.format_exp_date(exp_date)
+        return new_date
+    else:
+        return False

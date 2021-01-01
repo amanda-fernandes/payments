@@ -3,17 +3,30 @@ const holder = document.getElementById('holder');
 const card = document.getElementById('cc-number');
 const exp_date = document.getElementById('exp_date');
 const cvv = document.getElementById('cvv');
+const brand = document.getElementById('brand');
+
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     if(validateHolder() && validateCreditCard() && validateCVV()) {
-        alert("VALIDATED!");
-        
-    }
-    else
-    {
+        /*after python credit card implementation, validate brand field*/
+        ///v1/credit-card                 
+        let data = { 
+            "cc_number": card.value,            
+            "exp_date": exp_date.value,
+            "holder": holder.value,
+            "cvv": cvv.value
+        };    
+        let url = "/v1/credit-card";
+        postData(url,data)
+            .then(data => {
+                let response = (data.message == "200") ? true : false;
+                return response;
+            });  
 
+            window.location.href = "/lista";
     }
+
 });
 
 function validateHolder() {
@@ -26,7 +39,8 @@ function validateHolder() {
 function validateCreditCard() {
     if (checkIfEmpty(card)) return;
     if (!containsCharacters(card,2)) return;    
-    if (!meetLength(card, 16, 16)) return;
+    if (!meetLength(card, 16, 17)) return;
+    if (creditCardBrand(card,brand)) return;
     return true;
 }
 
@@ -37,29 +51,17 @@ function validateCVV() {
     return true;
 }
 
-/*window.onload = function(){ 
-    const input_credit_card = document.getElementById('cc-number');               
-    input_credit_card.addEventListener('keyup', event => {            
-        console.log(input_credit_card);
-        if(input_credit_card.length == 16)
-        {
-            let cc_number = input_credit_card;
-            let data = { cc_number };
-            let url = "/v1/credit-card-validation";
-            postData(url,data)
-                .then(data => {
-                    console.log(data);
-                    if(data.message == "200") 
-                    {
-                        
-                    }
-                });              
-        }
-        else 
-        {
+function creditCardBrand(fieldCard,fieldBrand){   
+    let data = { "cc_number": fieldCard.value };    
+    let url = "/v1/credit-card-validation";
+    postData(url,data)
+        .then(data => {
+            let response = (data.message == "200") ? true : false;
+            return response;
+        });  
+}
 
-        }
-    });
-}*/
+
+
 
 

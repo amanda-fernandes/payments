@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-
+{%block  extra_js %} 
+<script type="text/javascript" src="{{ url_for('static', filename='util.js') }}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename='list.js') }}" defer></script>
+{% endblock extra_js%}
 {% block main %}
 <table class="table">
     <thead>
