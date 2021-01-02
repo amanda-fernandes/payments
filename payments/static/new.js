@@ -24,7 +24,7 @@ form.addEventListener('submit', function(event) {
                 return response;
             });  
 
-            window.location.href = "/lista";
+            window.location.href = "/";
     }
 
 });
