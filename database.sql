@@ -4,12 +4,13 @@ USE payments;
 CREATE TABLE creditcard
 (
     id INT NOT NULL AUTO_INCREMENT,
-    exp_date DATE NOT NULL,
+    exp_
+    date DATE NOT NULL,
     holder VARCHAR(100) NOT NULL,
     cc_number VARBINARY(200) NOT NULL,
     cvv INT NULL,
     PRIMARY KEY(id)
-);
+)ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=latin1;
 
 CREATE TABLE user
 (
@@ -17,4 +18,4 @@ CREATE TABLE user
     email VARCHAR(100) NOT NULL,
     passwrd VARCHAR(80) NOT NULL,
     PRIMARY KEY(id)
-);
+)ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=latin1;

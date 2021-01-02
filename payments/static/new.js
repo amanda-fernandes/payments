@@ -6,7 +6,7 @@ const cvv = document.getElementById('cvv');
 const brand = document.getElementById('brand');
 
 
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', (event) => {
     event.preventDefault();
     if(validateHolder() && validateCreditCard() && validateCVV()) {
         /*after python credit card implementation, validate brand field*/

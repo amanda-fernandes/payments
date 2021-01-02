@@ -4,7 +4,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='list.js') }}" defer></script>
 {% endblock extra_js%}
 {% block main %}
-<table class="table">
+<table class="table" id="cc_table">
     <thead>
       <tr>
         <th>Credit Card #</th>
@@ -13,12 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>38</td>
-        <td>23</td>
-        <td><button>Detail</button></td>
-        
-      </tr>
+      
     </tbody>
 </table>
 {% endblock main %}
