@@ -74,6 +74,10 @@ function containsCharacters(field, code) {
         // Email pattern
         regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return matchWithRegEx(regEx, field, 'Must be a valid email address');
+      case 4:
+        //YYYY/MM
+        regEx = /^\d{4}\/\d{2}$/;
+        return matchWithRegEx(regEx, field, 'Must be a YYYY/MM');
       default:
         return false;
     }
@@ -91,7 +95,7 @@ function matchWithRegEx(regEx, field, message) {
 
 function dateFormat(el){
     value = el.value;       
-    el.value = value.replace(/^([\d]{4})([\d]{2})$/,"$1/$2");        
+    el.value = value.replace(/^([\d]{4})([\d]{2})$/,"$1/$2");          
 }
 
 async function postData(url = '', data = {}) 

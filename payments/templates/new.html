@@ -6,9 +6,12 @@
 {% endblock extra_js%}
 
 {% block main %}
+<div id="notification">
+
+</div>
 <form id="cc-form">
     <div class="columns">
-        <div class="column">
+        <div class="column is-half">
             <div class="field">
                 <label class="label">Card Holder Name</label>
                 <div class="control">
@@ -16,7 +19,7 @@
                     type="text" 
                     id="holder"
                     class="input" 
-                    onfocusout="validateHolder()">
+                    onfocusout="validateHolder();enableSubmit();">
                     <p class="help"></p>
                 </div>
                 
@@ -29,7 +32,8 @@
                     type="text"
                     id="cc-number" 
                     class="input" 
-                    onfocusout="validateCreditCard()">
+                    onfocusout="validateCreditCard();enableSubmit();"
+                    data-validated="false">
                 <p class="help"></p>
                 </div>
             </div>
@@ -41,7 +45,8 @@
                     type="text"
                     id="exp_date" 
                     placeholder="YYYY/MM" 
-                    onchange="dateFormat(this)">
+                    onfocusout="validateExpDate();enableSubmit();">
+                    <p class="help"></p>
                 </div>
             </div>
             
@@ -52,7 +57,7 @@
                     type="text" 
                     placeholder="CVV" 
                     id="cvv"
-                    onfocusout="validateCVV()">
+                    onfocusout="validateCVV();enableSubmit();">
                     <p class="help"></p>
                 </div>
             </div>
@@ -60,13 +65,17 @@
             <div class="field">
                 <label class="label">Brand</label>
                 <div class="control">
-                <input class="input" id="brand" type="text" placeholder="Brand" value="" readonly>
+                <input class="input" 
+                id="brand" 
+                type="text" 
+                placeholder="Brand" 
+                readonly>
                 </div>
             </div>
         
             <div class="field is-grouped">
                 <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="btn-submit" class="button is-link" disabled="true">Submit</button>
                 </div>
                 <div class="control">
                 <button class="button is-link is-light">Cancel</button>

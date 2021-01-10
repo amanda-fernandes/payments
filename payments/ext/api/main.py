@@ -36,10 +36,11 @@ def add_credit_card():
 cc_validation = {
   "type": "object",
   "properties": {        
-    "cc_number": { "type": "string", "minLength": 16, "maxLength": 16, "error_msg": "Please provide a valid Credit Card Number" },    
+    "cc_number": { "type": "string","error_msg": "Please provide a valid Credit Card Number" },    
   },
   "required": ["cc_number"]
 }
+
 @bp.route("/v1/credit-card-validation", methods=['POST'])
 @expects_json(cc_validation)
 def validate_credit_card():  
@@ -47,3 +48,4 @@ def validate_credit_card():
     cc_number = data["cc_number"]
     response = credit_card.validate_credit_card(cc_number)
     return response 
+
