@@ -12,13 +12,8 @@ window.onload = (event) => {
                 newCell.appendChild(newText);
             }
         }
-        
-        
-        
-        
-      
+
        
     });
-    
 
 };

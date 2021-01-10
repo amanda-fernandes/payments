@@ -1,7 +1,8 @@
 from flask import jsonify
 from payments.ext.api import utils
 from payments.ext.model.CreditCard import CreditCard, db
-#from creditcard import CreditCard
+from payments.ext.creditcard.creditcard import CreditCard as cc
+from payments.ext.creditcard.creditcard.exceptions import BrandNotFound
 
 def get_all():
     credit = CreditCard.query.all()
@@ -45,12 +46,10 @@ def validate_credit_card(cc_number):
         return jsonify(dict(message=e.message)), 409
 
 def add_credit_card(data):    
-    try:
-        #validate credit card     
-        #cc = CreditCard(card_number)
-        #if(cc.is_valid() and cc.get_brand() and utils.is_date_valid()):
+    try:  
+        card = cc(data['cc_number'])
         new_date = validate_date(data["exp_date"])
-        if(new_date != False):            
+        if(new_date != False and card.is_valid()):            
             new_user = CreditCard(exp_date=new_date, holder=data['holder'],cc_number=utils.encripty(data['cc_number']), cvv=data['cvv'])
             db.session.add(new_user)
             db.session.commit()
@@ -65,3 +64,13 @@ def validate_date(exp_date):
         return new_date
     else:
         return False
+
+def validate_credit_card(card_number):
+    card = cc(card_number)
+    if(card.is_valid()):
+        try:
+            brand = card.get_brand()
+            return jsonify({'brand' : brand })  
+        except BrandNotFound:
+            return jsonify({'message' : 'No Brand!'})  
+    return jsonify({'message' : 'Not a valid Credit Card Number!'})  

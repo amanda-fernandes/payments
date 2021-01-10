@@ -9,23 +9,8 @@ const brand = document.getElementById('brand');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     if(validateHolder() && validateCreditCard() && validateCVV()) {
-        /*after python credit card implementation, validate brand field*/
-        ///v1/credit-card                 
-        let data = { 
-            "cc_number": card.value,            
-            "exp_date": exp_date.value,
-            "holder": holder.value,
-            "cvv": cvv.value
-        };    
-        let url = "/v1/credit-card";
-        postData(url,data)
-            .then(data => {
-                let response = (data.message == "200") ? true : false;
-                return response;
-                
-            });  
-
-            
+        creditCardBrand(card,brand);     
+                   
     }
 
 });
@@ -41,7 +26,6 @@ function validateCreditCard() {
     if (checkIfEmpty(card)) return;
     if (!containsCharacters(card,2)) return;    
     if (!meetLength(card, 16, 17)) return;
-    if (creditCardBrand(card,brand)) return;
     return true;
 }
 
@@ -52,13 +36,30 @@ function validateCVV() {
     return true;
 }
 
-function creditCardBrand(fieldCard,fieldBrand){   
-    let data = { "cc_number": fieldCard.value };    
+async function creditCardBrand(fieldCard,fieldBrand){   
+    let cc = fieldCard.value.toString();
+    console.log(cc);
+    let data = { "cc_number":  cc};    
     let url = "/v1/credit-card-validation";
-    postData(url,data)
+    await postData(url,data)
         .then(data => {
-            let response = (data.message == "200") ? true : false;
-            return response;
+            if(data['brand'])
+            {
+                fieldBrand.value = data["brand"];
+                  
+                let dataSubmit = { 
+                    "cc_number": card.value,            
+                    "exp_date": exp_date.value,
+                    "holder": holder.value,
+                    "cvv": cvv.value
+                };  
+
+                let url = "/v1/credit-card";
+                postData(url,dataSubmit)
+                    .then(data => {
+                        console.log(data);
+                    });             
+            }
         });  
 }
 

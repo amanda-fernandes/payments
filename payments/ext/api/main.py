@@ -46,4 +46,4 @@ def validate_credit_card():
     data = g.data
     cc_number = data["cc_number"]
     response = credit_card.validate_credit_card(cc_number)
-    return response
+    return response 
