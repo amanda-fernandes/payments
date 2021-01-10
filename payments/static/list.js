@@ -10,7 +10,7 @@ window.onload = (event) => {
                 const newCell = newRow.insertCell(0);               
                 let newText = document.createTextNode(value);
                 newCell.appendChild(newText);
-            }
+            }            
         }
 
        

@@ -26,12 +26,12 @@ def get_by_id(id):
     credit_card = CreditCard.query.filter_by(id=id).first()
     if not credit_card:
         return jsonify({"message": "Not found!"})
-
+    
     data = {
         "id": credit_card.id,
         "exp_date": credit_card.exp_date,
         "holder": credit_card.holder,
-        "cc_number": credit_card.cc_number,
+        "cc_number": utils.decrypt(credit_card.cc_number),
         "cvv": credit_card.cvv
     }
 
