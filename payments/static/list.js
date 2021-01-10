@@ -9,7 +9,6 @@ window.onload = (event) => {
                 let value = obj[key]; 
                 const newCell = newRow.insertCell(0);               
                 let newText = document.createTextNode(value);
-                console.log("<br> - " + key + ": " + value);
                 newCell.appendChild(newText);
             }
         }
