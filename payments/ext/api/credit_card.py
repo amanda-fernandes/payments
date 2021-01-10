@@ -10,7 +10,7 @@ def get_all():
         for cc in credit:
             new_cc = {
                 "id": cc.id,
-                "exp_date": dateToString(cc.exp_date),
+                "exp_date": utils.date_to_string(cc.exp_date),
                 "holder": cc.holder,
                 "cc_number": utils.decrypt(cc.cc_number),
                 "cvv": cc.cvv,

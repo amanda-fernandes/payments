@@ -22,9 +22,10 @@ form.addEventListener('submit', (event) => {
             .then(data => {
                 let response = (data.message == "200") ? true : false;
                 return response;
+                
             });  
 
-            window.location.href = "/";
+            
     }
 
 });

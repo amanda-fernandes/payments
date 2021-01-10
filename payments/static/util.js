@@ -114,7 +114,7 @@ async function postData(url = '', data = {})
 async function getData(url = '') 
 {
     const response = await fetch(url, {
-        method: 'POST', 
+        method: 'GET', 
         mode: 'cors', 
         cache: 'no-cache', 
         credentials: 'same-origin',
@@ -122,8 +122,7 @@ async function getData(url = '')
         'Content-Type': 'application/json'            
         },
         redirect: 'follow', 
-        referrerPolicy: 'no-referrer', 
-        body: JSON.stringify(data) 
+        referrerPolicy: 'no-referrer'
     });
     return response.json(); 
 }
